@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="{% static 'css/User.css' %}">
+  <title>Userinfo</title>
+</head>
+<body>
+  <div class="container-fluid">
+    {% csrf_token %}
+    <h1>Hello {{userinfo.username}}</h1>
+    <h3>Email: {{userinfo.email}}</h3>
+    
+    <a href="{% url 'logout_view' %}">logout</a>
+  </div>
+  
+  
+  <script src="{% static 'js/User.js' %}"></script>
+</body>
+</html>
