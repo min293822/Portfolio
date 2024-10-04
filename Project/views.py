@@ -25,13 +25,13 @@ def signup_view(request):
     form = UserSignUpForm(request.POST)
     if form.is_valid():
       email = form.cleaned_data['email']
-      if User.objects.filter(email=email).exist():
-        return redirect('signup_view')
-      else:
-        userinfo = request.form
-        user = authenticate(request,username=username, password = request.POST['password'])
-        login(request, user)
+      if User.objects.filter(email=email).exists():
         return redirect('login_view')
+      else:
+        userinfo = form.save()
+        user = authenticate(request,username=user_name, password = request.POST['password'])
+        login(request, user)
+        return redirect('userinfo_view')
   else:
     form = UserSignUpForm()
   return render(request, 'Project/Signup.html', {'form' : form})

@@ -3,12 +3,12 @@ from django.contrib.auth.models import User
 from .models import UserDetails
 
 class UserSignUpForm(forms.ModelForm):
-    password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password', 'id':'password'})
-    )
-    user = forms.CharField(
+    user_name = forms.CharField(
         max_length=100,
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Full Name', 'id':'name'})
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password', 'id':'password'})
     )
     email = forms.EmailField(
         widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email Address', 'id':'email'})
@@ -30,11 +30,11 @@ class UserSignUpForm(forms.ModelForm):
 
     class Meta:
         model = UserDetails
-        fields = ['user', 'email', 'sex', 'birth_date', 'password']
+        fields = ['user_name', 'email', 'sex', 'birth_date', 'password']
 
     def save(self, commit=True):
         user = User.objects.create_user(
-            username=self.cleaned_data['name'],
+            username=self.cleaned_data['user_name'],
             email=self.cleaned_data['email'],
             password=self.cleaned_data['password']
         )
